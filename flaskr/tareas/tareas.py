@@ -10,6 +10,7 @@ import requests
 
 broker = os.environ['REDIS_URL']
 backend = os.environ['REDIS_URL']
+
 celery  = Celery(__name__, broker=broker,
                 backend=backend)
 # celery.conf.broker_url = os.environ.get("CELERY_BROKER_URL", 'redis://redis:6379/0')
