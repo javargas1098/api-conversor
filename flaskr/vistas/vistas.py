@@ -33,20 +33,20 @@ class VistaFiles(Resource):
             return resp
         if file and allowed_file(file.filename.replace("uploaded", "")):
             format = request.form.get("fileType")
-            filename = secure_filename(file.filename.replace("uploaded", ""))
-            filename = '{}.{}'.format(os.path.splitext(filename)[0] + str(uuid.uuid4()),
-                                      os.path.splitext(filename)[1])  # Build input name
-            MYDIR = os.path.dirname(__file__).replace("vistas", "").replace("/app/","")                          
-            output = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'], filename)
-            print("******",filename)
+            # filename = secure_filename(file.filename.replace("uploaded", ""))
+            # filename = '{}.{}'.format(os.path.splitext(filename)[0] + str(uuid.uuid4()),
+                                    #   os.path.splitext(filename)[1])  # Build input name
+            # MYDIR = os.path.dirname(__file__).replace("vistas", "").replace("/app/","")                          
+            # output = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'], filename)
+            print("******",file.filename)
             # print(output)
             # file.save(output)
             
             uuidSelected = uuid.uuid4()
-            dfile = '{}.{}'.format(os.path.splitext(filename)[0] + str(uuidSelected), str(format))  # Build file name
+            dfile = '{}.{}'.format(os.path.splitext(file.filename)[0] + str(uuidSelected), str(format))  # Build file name
             # outputF = os.path.join( current_app.config['UPLOAD_FOLDER_FACES'], dfile)
             outputF = URL_ARCHIVOS+'/download/' + dfile 
-            inputF  = URL_ARCHIVOS+'/upload/' + filename 
+            inputF  = URL_ARCHIVOS+'/upload/' + file.filename 
             # json = {
             #     'output':output,
             #     'urlFile':URL_ARCHIVOS,
@@ -58,7 +58,7 @@ class VistaFiles(Resource):
             # }
             json = {
             'creation_date':str(int(time.time())),
-            'filename': filename,
+            'filename': file.filename,
             'taskId': request.form.get("taskId"),
             'output':outputF,
             'input':inputF,
