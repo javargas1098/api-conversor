@@ -37,7 +37,7 @@ def file_save(request_json):
     filename = request_json["filename"]
     outputF = request_json["outputF"]
     creation_date = request_json["creation_date"]
-    dfile = request_json["dfile"] 
+    # dfile = request_json["dfile"] 
     taskId = request_json["taskId"] 
     with app.app_context():
         # file = open(output, "rb")
@@ -48,7 +48,6 @@ def file_save(request_json):
         json = {
             'creation_date':creation_date,
             'filename': filename,
-            'dfile': dfile,
             'taskId': taskId,
             'output':outputF,
             'input':inputF,

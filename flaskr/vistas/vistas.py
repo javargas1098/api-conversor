@@ -43,23 +43,29 @@ class VistaFiles(Resource):
             # file.save(output)
             
             uuidSelected = uuid.uuid4()
-            dfile = '{}.{}'.format(os.path.splitext(filename)[
-                                        0] + str(uuidSelected), str(format))  # Build file name
-            outputF = os.path.join( current_app.config['UPLOAD_FOLDER_FACES'], dfile)
-            outputF = URL_ARCHIVOS+'/download/' + filename 
+            dfile = '{}.{}'.format(os.path.splitext(filename)[0] + str(uuidSelected), str(format))  # Build file name
+            # outputF = os.path.join( current_app.config['UPLOAD_FOLDER_FACES'], dfile)
+            outputF = URL_ARCHIVOS+'/download/' + dfile 
             inputF  = URL_ARCHIVOS+'/upload/' + filename 
+            # json = {
+            #     'output':output,
+            #     'urlFile':URL_ARCHIVOS,
+            #     'outputF':outputF,
+            #     'inputF':inputF,
+            #     'filename':filename,
+            #     'creation_date': str(int(time.time())),
+            #     'taskId': 
+            # }
             json = {
-                'output':output,
-                'urlFile':URL_ARCHIVOS,
-                'outputF':outputF,
-                'inputF':inputF,
-                'filename':filename,
-                'dfile':dfile,
-                'creation_date': str(int(time.time())),
-                'taskId': request.form.get("taskId")
-            }
+            'creation_date':str(int(time.time())),
+            'filename': filename,
+            'taskId': request.form.get("taskId"),
+            'output':outputF,
+            'input':inputF,
+            'urlFile': URL_ARCHIVOS+'/download'
+        }
             #args = (json,)
-            file_save.delay(json)
+            file_conversion.delay(json)
             return "Task converted", 201
         else:
             resp = jsonify(
