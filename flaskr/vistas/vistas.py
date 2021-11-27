@@ -36,7 +36,7 @@ class VistaFiles(Resource):
             filename = secure_filename(file.filename.replace("uploaded", ""))
             filename = '{}.{}'.format(os.path.splitext(filename)[0] + str(uuid.uuid4()),
                                       os.path.splitext(filename)[1])  # Build input name
-            MYDIR = os.path.dirname(__file__)                            
+            MYDIR = os.path.dirname(__file__).replace("vistas", "")                          
             output = os.path.join(MYDIR + "/" + current_app.config['UPLOAD_FOLDER'], filename)
             print("******",filename)
             print(output)
@@ -114,7 +114,7 @@ class VistaDeleteFiles(Resource):
     def delete(self):
         name = request.json['name']
         nameFormat = request.json['nameFormat']
-        MYDIR = os.path.dirname(__file__) 
+        MYDIR = os.path.dirname(__file__).replace("vistas", "")  
         outputF = os.path.join(MYDIR + "/" + current_app.config['UPLOAD_FOLDER'], name)  # Build previous name path
         outputFormat = os.path.join(MYDIR + "/" + current_app.config['DOWNLOAD_FOLDER'],
                                     nameFormat)  # Build previous format name path
