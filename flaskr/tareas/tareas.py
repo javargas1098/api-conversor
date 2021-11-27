@@ -73,7 +73,7 @@ def file_conversion(request_json):
     # Ffmpeg is flexible enough to handle wildstar conversions
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     print("**/****",inputF)
-    convertCMD = ['/usr/bin/ffmpeg', '-y', '-i', inputF, outputF]
+    convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     executeOrder66 = sp.Popen(convertCMD)
     try:
