@@ -7,6 +7,7 @@ from celery.signals import task_postrun
 from flask import current_app,Flask
 from ..modelos import Task, TaskSchema,db
 import requests
+import boto3
 
 
 broker = os.environ['REDIS_URL']
@@ -18,6 +19,16 @@ celery  = Celery(__name__, broker=broker,
 # celery.conf.broker_url = os.environ.get("CELERY_BROKER_URL", 'redis://redis:6379/0')
 # celery.conf.result_backend = os.environ.get("CELERY_RESULT_BACKEND",  'redis://redis:6379/0')
 celery.conf.broker_pool_limit = 0
+
+def upload_file(folder,file_name, bucket):
+    """
+    Function to upload a file to an S3 bucket
+    """
+    s3_client = boto3.client('s3', aws_access_key_id="ASIA3I2TQPFIU5UXYW77",
+    aws_secret_access_key="TFnjaQHcUuGDH/N+kqULsVbsYIwpsxzCPTzg//d1",
+    aws_session_token="FwoGZXIvYXdzEPT//////////wEaDK6rgi/sdx4KB1ZKaSLKAdND+FYArkIa7QAi2TjH6NGkkX9kAgooWLdztoJyONjJiSZgCbu0UA83AW/Gmkg6ggc6Es9RxG/12W60rJ4G+G8XXjYwRPjL+wsi9p9IXYFMakG7AvUJJ4Ytmo1VWFLbW5/SLq/mhgOHTy26zAMN/KehsRbvCbvwr/BaUrUWH+rE9R7K4FdFkO6mYRMHryJHpmUk3G9rCFunz5+dH4omwHe2dSEQUPbOcj+QmZvq2hM0Si2in4TkN7qLuLtozFB+j6Hs/ZW5YRV3+DkosPeJjQYyLbkKcYmFpxU9BvzBinOV7xD7NXptFJerGHHzqyIpnrL83s2ZA/fiR/93JQ9gmw==")
+    response = s3_client.upload_file(file_name, bucket, folder+"/"+file_name,ExtraArgs={'ACL': 'public-read'})
+    return response
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -77,10 +88,12 @@ def file_conversion(request_json):
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     print("**/****",inputF)
     print("**/****",outputF)
-    convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
+    # ffmpeg -re -i in.ts -f hls -method PUT http://example.com/live/out.m3u8
+    out="https://grupo5-files.s3.amazonaws.com/uploads/rr.wma"
+    convertCMD = ['ffmpeg', '-re', '-i','-f' ,'hls' ,'-method PUT', inputF, out]
     
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
-    executeOrder66 = sp.Popen(convertCMD)
+    executeOrder66 = sp.Popen(convertCMD,stdout=outputF, stderr=outputF, shell=True)
     print("pase")
     print(executeOrder66)
     print(type(executeOrder66))
