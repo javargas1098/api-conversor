@@ -37,15 +37,15 @@ class VistaFiles(Resource):
             filename = '{}.{}'.format(os.path.splitext(filename)[0] + str(uuid.uuid4()),
                                       os.path.splitext(filename)[1])  # Build input name
             MYDIR = os.path.dirname(__file__).replace("vistas", "").replace("/app/","")                          
-            output = os.path.join(MYDIR + current_app.config['UPLOAD_FOLDER'], filename)
+            output = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'], filename)
             print("******",filename)
-            print(output)
-            file.save(output)
+            # print(output)
+            # file.save(output)
             
             uuidSelected = uuid.uuid4()
             dfile = '{}.{}'.format(os.path.splitext(filename)[
                                         0] + str(uuidSelected), str(format))  # Build file name
-            outputF = os.path.join(os.path.dirname(__file__).replace("vistas", "") + current_app.config['DOWNLOAD_FOLDER'], dfile)
+            outputF = os.path.join( current_app.config['UPLOAD_FOLDER_FACES'], dfile)
             inputF  = URL_ARCHIVOS+'/upload/' + filename 
             json = {
                 'output':output,
@@ -88,7 +88,7 @@ class VistaUpdateFiles(Resource):
         dfile = '{}.{}'.format(os.path.splitext(name)[0] + str(uuid.uuid4()), str(newFormat))  # Build file name
 
         inputF=URL_ARCHIVOS+'/upload/' +name  # Build input path
-        outputF = os.path.join(os.path.dirname(__file__).replace("vistas", "") + current_app.config['DOWNLOAD_FOLDER'],
+        outputF = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'],
                             dfile)  # Build output path
 
         json = {
@@ -115,8 +115,8 @@ class VistaDeleteFiles(Resource):
         name = request.json['name']
         nameFormat = request.json['nameFormat']
         MYDIR = os.path.dirname(__file__).replace("vistas", "").replace("/app/","")   
-        outputF = os.path.join(MYDIR + current_app.config['UPLOAD_FOLDER'], name)  # Build previous name path
-        outputFormat = os.path.join(MYDIR + current_app.config['DOWNLOAD_FOLDER'],
+        outputF = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'], name)  # Build previous name path
+        outputFormat = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'],
                                     nameFormat)  # Build previous format name path
         os.remove(outputF)
         os.remove(outputFormat)
