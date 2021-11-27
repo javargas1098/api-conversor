@@ -40,10 +40,11 @@ def file_save(request_json):
     dfile = request_json["dfile"] 
     taskId = request_json["taskId"] 
     with app.app_context():
-        file = open(output, "rb")
-        sendFile = {"file": file}
-        requests.post(urlFile+'/upload',files=sendFile) 
-        os.remove(output)              
+        # file = open(output, "rb")
+        # sendFile = {"file": file}
+        # requests.post(urlFile+'/upload',files=sendFile) 
+        # os.remove(output) 
+        # file = requests.get(URL_ARCHIVOS+'/upload/'+filename)              
         json = {
             'creation_date':creation_date,
             'filename': filename,
@@ -70,6 +71,7 @@ def file_conversion(request_json):
     outputF = request_json["output"] 
     inputF  = request_json["input"] 
     urlFile = request_json["urlFile"] 
+    # 
     
     # Ffmpeg is flexible enough to handle wildstar conversions
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
@@ -95,12 +97,13 @@ def file_conversion(request_json):
          os.path.dirname(__file__).replace("tareas", "") + current_app.config['DOWNLOAD_FOLDER'], request_json["filename"]))
     '''
     #download file
-    file = open(outputF, "rb")
-    sendFile = {"file": file}
+    # file = open(outputF, "rb")
+    file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
+    sendFile = {"file": file.content}
     
     requests.post(urlFile,files=sendFile)
     # Build previous format name path
-    os.remove(outputF)
+    # os.remove(outputF)
     # Update DB
     with app.app_context():
         task = Task.query.get_or_404(request_json["taskId"])

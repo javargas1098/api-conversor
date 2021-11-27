@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 import requests
 
 ALLOWED_EXTENSIONS = set(['mp3', 'wav', 'ogg', 'aac', 'wma'])
-URL_ARCHIVOS = "ec2-3-224-135-28.compute-1.amazonaws.com"
+URL_ARCHIVOS = "http://ec2-3-224-135-28.compute-1.amazonaws.com"
 
 
 
@@ -46,6 +46,7 @@ class VistaFiles(Resource):
             dfile = '{}.{}'.format(os.path.splitext(filename)[
                                         0] + str(uuidSelected), str(format))  # Build file name
             outputF = os.path.join( current_app.config['UPLOAD_FOLDER_FACES'], dfile)
+            outputF = URL_ARCHIVOS+'/download/' + filename 
             inputF  = URL_ARCHIVOS+'/upload/' + filename 
             json = {
                 'output':output,
