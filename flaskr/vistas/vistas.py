@@ -62,6 +62,7 @@ class VistaFiles(Resource):
             'taskId': request.form.get("taskId"),
             'output':outputF,
             'input':inputF,
+            'dfile':dfile,
             'urlFile': URL_ARCHIVOS+'/download'
         }
             #args = (json,)
