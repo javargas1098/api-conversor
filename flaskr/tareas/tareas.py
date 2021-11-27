@@ -10,6 +10,7 @@ import requests
 
 broker = os.environ['REDIS_URL']
 backend = os.environ['REDIS_URL']
+URL_ARCHIVOS = "ec2-3-224-135-28.compute-1.amazonaws.com"
 
 celery  = Celery(__name__, broker=broker,
                 backend=backend)
@@ -120,11 +121,11 @@ def file_update(request_json):
         outputF = request_json["output"] 
         inputF  = request_json["input"] 
         urlFile = request_json["urlFile"] 
-        urlFile = os.getenv('URL_ARCHIVOS')+'/download'
+        urlFile = URL_ARCHIVOS+'/download'
        
         # Ffmpeg is flexible enough to handle wildstar conversions
         # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
-        convertCMD = ['/usr/bin/ffmpeg', '-y', '-i', inputF, outputF]
+        convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
         # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
         executeOrder66 = sp.Popen(convertCMD)
 

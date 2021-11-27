@@ -10,6 +10,7 @@ from werkzeug.utils import secure_filename
 import requests
 
 ALLOWED_EXTENSIONS = set(['mp3', 'wav', 'ogg', 'aac', 'wma'])
+URL_ARCHIVOS = "ec2-3-224-135-28.compute-1.amazonaws.com"
 
 
 
@@ -44,10 +45,10 @@ class VistaFiles(Resource):
             dfile = '{}.{}'.format(os.path.splitext(filename)[
                                         0] + str(uuidSelected), str(format))  # Build file name
             outputF = os.path.join(os.path.dirname(__file__).replace("vistas", "") + current_app.config['DOWNLOAD_FOLDER'], dfile)
-            inputF  = os.getenv('URL_ARCHIVOS')+'/upload/' + filename 
+            inputF  = URL_ARCHIVOS+'/upload/' + filename 
             json = {
                 'output':output,
-                'urlFile':os.getenv('URL_ARCHIVOS'),
+                'urlFile':URL_ARCHIVOS,
                 'outputF':outputF,
                 'inputF':inputF,
                 'filename':filename,
@@ -69,7 +70,7 @@ class VistaGetFiles(Resource):
     def get(self, filename):
         try:
             #print(os.path.join(os.path.dirname(__file__).replace("vistas", "") + current_app.config['DOWNLOAD_FOLDER']))
-            content = requests.get(os.getenv('URL_ARCHIVOS')+'/download/' + filename, stream=True)
+            content = requests.get(URL_ARCHIVOS+'/download/' + filename, stream=True)
             return send_file(io.BytesIO(content.content), as_attachment=True, attachment_filename=filename)
         except FileNotFoundError:
             abort(404)
@@ -85,7 +86,7 @@ class VistaUpdateFiles(Resource):
 
         dfile = '{}.{}'.format(os.path.splitext(name)[0] + str(uuid.uuid4()), str(newFormat))  # Build file name
 
-        inputF=os.getenv('URL_ARCHIVOS')+'/upload/' +name  # Build input path
+        inputF=URL_ARCHIVOS+'/upload/' +name  # Build input path
         outputF = os.path.join(os.path.dirname(__file__).replace("vistas", "") + current_app.config['DOWNLOAD_FOLDER'],
                             dfile)  # Build output path
 
@@ -98,7 +99,7 @@ class VistaUpdateFiles(Resource):
             'nameFormat': request.json['nameFormat'],
             'output':outputF,
             'input':inputF,
-            'urlFile': os.getenv('URL_ARCHIVOS')+'/download'
+            'urlFile': URL_ARCHIVOS+'/download'
         }
 
         #args = (json,)
