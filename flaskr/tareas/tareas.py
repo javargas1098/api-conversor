@@ -79,12 +79,12 @@ def file_conversion(request_json):
     convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
-    # executeOrder66 = sp.Popen(convertCMD)
+    executeOrder66 = sp.Popen(convertCMD)
     
     try:
-        executeOrder66 = sp.run(convertCMD, stdout=sp.PIPE, stderr=sp.PIPE,timeout=10)
-        # outs, errs = executeOrder66.communicate(
-        #     timeout=10)  # tell program to wait
+        # executeOrder66 = sp.run(convertCMD, stdout=sp.PIPE, stderr=sp.PIPE,timeout=10)
+        outs, errs = executeOrder66.communicate(
+            timeout=10)  # tell program to wait
     except TimeoutError:
         proc.kill()
 

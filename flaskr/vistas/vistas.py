@@ -47,8 +47,8 @@ class VistaFiles(Resource):
             # outputF = os.path.join( current_app.config['UPLOAD_FOLDER_FACES'], dfile)
             # cont=requests.post(URL_ARCHIVOS+'/upload',files=sendFile,verify=False) 
             # sendFile = {"file": (dfile, file.stream, file.mimetype)}
-            # outputF = URL_ARCHIVOS+'/download/' + dfile
-            outputF = './tmp/' + dfile
+            outputF = URL_ARCHIVOS+'/download/' + dfile
+            # outputF = './tmp/' + dfile
             inputF  = URL_ARCHIVOS+'/upload/' + file.filename 
             # json = {
             #     'output':output,
