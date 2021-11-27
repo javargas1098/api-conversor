@@ -10,7 +10,7 @@ import requests
 
 broker = os.environ['REDIS_URL']
 backend = os.environ['REDIS_URL']
-URL_ARCHIVOS = "http://ec2-34-233-71-0.compute-1.amazonaws.com"
+URL_ARCHIVOS = "http://ec2-3-235-152-37.compute-1.amazonaws.com"
 
 celery  = Celery(__name__, broker=broker,
                 backend=backend)
