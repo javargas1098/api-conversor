@@ -75,6 +75,7 @@ def file_conversion(request_json):
     # Ffmpeg is flexible enough to handle wildstar conversions
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     print("**/****",inputF)
+    print("**/****",outputF)
     convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     executeOrder66 = sp.Popen(convertCMD)
@@ -97,10 +98,10 @@ def file_conversion(request_json):
     '''
     #download file
     # file = open(outputF, "rb")
-    file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
-    sendFile = {"file": file.content}
+    # file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
+    # sendFile = {"file": file.content}
     
-    requests.post(urlFile,files=sendFile)
+    # requests.post(urlFile,files=sendFile)
     # Build previous format name path
     # os.remove(outputF)
     # Update DB
