@@ -1,6 +1,7 @@
 import datetime
 import os
 import subprocess as sp
+from subprocess import Popen, PIPE
 from celery import Celery
 from celery.signals import task_postrun
 from flask import current_app,Flask
@@ -79,7 +80,7 @@ def file_conversion(request_json):
     convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
-    executeOrder66 = sp.Popen(convertCMD)
+    executeOrder66 = sp.Popen(convertCMD,shell = True, stdin = sp.PIPE)
     
     try:
         # executeOrder66 = sp.run(convertCMD, stdout=sp.PIPE, stderr=sp.PIPE,timeout=10)
