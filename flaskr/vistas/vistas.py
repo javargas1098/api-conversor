@@ -51,6 +51,7 @@ class VistaFiles(Resource):
             # outputF = './tmp/' + dfile
             inputF  = URL_ARCHIVOS+'/upload/' + file.filename 
             print("acaaaaaaaaaaaaaa")
+            print(outputF)
             print(inputF)
             # json = {
             #     'output':output,

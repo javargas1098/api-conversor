@@ -79,14 +79,12 @@ def file_conversion(request_json):
     # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
     print("**/****",inputF)
     print("**/****",outputF)
+    
     # ffmpeg -re -i in.ts -f hls -method PUT http://example.com/live/out.m3u8
     # convertCMD = ['ffmpeg', '-re', '-i','-f' ,'hls' ,'-method PUT', inputF, out]
     
     convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
-    executeOrder66 = sp.Popen(convertCMD)
-    print("pase")
-    print(executeOrder66)
-    print(type(executeOrder66))
+    executeOrder66 = sp.Popen(convertCMD,shell=True)
     
     try:
         # executeOrder66 = sp.run(convertCMD, stdout=sp.PIPE, stderr=sp.PIPE,timeout=10)
