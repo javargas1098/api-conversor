@@ -12,7 +12,7 @@ import boto3
 
 broker = os.environ['REDIS_URL']
 backend = os.environ['REDIS_URL']
-URL_ARCHIVOS = "http://ec2-3-235-152-37.compute-1.amazonaws.com"
+URL_ARCHIVOS = "http://ec2-44-198-170-177.compute-1.amazonaws.com"
 
 celery  = Celery(__name__, broker=broker,
                 backend=backend)
@@ -20,15 +20,6 @@ celery  = Celery(__name__, broker=broker,
 # celery.conf.result_backend = os.environ.get("CELERY_RESULT_BACKEND",  'redis://redis:6379/0')
 celery.conf.broker_pool_limit = 0
 
-def upload_file(folder,file_name, bucket):
-    """
-    Function to upload a file to an S3 bucket
-    """
-    s3_client = boto3.client('s3', aws_access_key_id="ASIA3I2TQPFIU5UXYW77",
-    aws_secret_access_key="TFnjaQHcUuGDH/N+kqULsVbsYIwpsxzCPTzg//d1",
-    aws_session_token="FwoGZXIvYXdzEPT//////////wEaDK6rgi/sdx4KB1ZKaSLKAdND+FYArkIa7QAi2TjH6NGkkX9kAgooWLdztoJyONjJiSZgCbu0UA83AW/Gmkg6ggc6Es9RxG/12W60rJ4G+G8XXjYwRPjL+wsi9p9IXYFMakG7AvUJJ4Ytmo1VWFLbW5/SLq/mhgOHTy26zAMN/KehsRbvCbvwr/BaUrUWH+rE9R7K4FdFkO6mYRMHryJHpmUk3G9rCFunz5+dH4omwHe2dSEQUPbOcj+QmZvq2hM0Si2in4TkN7qLuLtozFB+j6Hs/ZW5YRV3+DkosPeJjQYyLbkKcYmFpxU9BvzBinOV7xD7NXptFJerGHHzqyIpnrL83s2ZA/fiR/93JQ9gmw==")
-    response = s3_client.upload_file(file_name, bucket, folder+"/"+file_name,ExtraArgs={'ACL': 'public-read'})
-    return response
 
 def create_app(config_name):
     app = Flask(__name__)
@@ -89,11 +80,10 @@ def file_conversion(request_json):
     print("**/****",inputF)
     print("**/****",outputF)
     # ffmpeg -re -i in.ts -f hls -method PUT http://example.com/live/out.m3u8
-    out="https://grupo5-files.s3.amazonaws.com/uploads/rr.wma"
-    convertCMD = ['ffmpeg', '-re', '-i','-f' ,'hls' ,'-method PUT', inputF, out]
+    # convertCMD = ['ffmpeg', '-re', '-i','-f' ,'hls' ,'-method PUT', inputF, out]
     
-    # convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
-    executeOrder66 = sp.Popen(convertCMD,stdout=outputF, stderr=outputF, shell=True)
+    convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
+    executeOrder66 = sp.Popen(convertCMD)
     print("pase")
     print(executeOrder66)
     print(type(executeOrder66))
@@ -117,6 +107,13 @@ def file_conversion(request_json):
          os.path.dirname(__file__).replace("tareas", "") + current_app.config['DOWNLOAD_FOLDER'], request_json["filename"]))
     '''
     #download file
+    print(os.getcwd())
+    print(os.path.dirname(__file__))
+    print(outputF)
+    # file.save(outputF)
+    f = open(outputF, "rb")
+    sendFile = {"file": f}
+    print(sendFile)
     # file = open(outputF, "rb")
     # file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
     # sendFile = {"file": file.content}
