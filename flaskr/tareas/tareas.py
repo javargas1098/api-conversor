@@ -94,9 +94,7 @@ def file_conversion(request_json):
         proc.kill()
 
     print("DONE\n")
-    # ddir = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'], request_json["dfile"])
-    # send_from_directory(directory=current_app.config['UPLOAD_FOLDER_FACES'], filename=request_json["dfile"], as_attachment=True)
-    # send_from_directory(current_app.config['UPLOAD_FOLDER_FACES'], request_json["dfile"], as_attachment=True)
+    send_from_directory(directory=current_app.config['UPLOAD_FOLDER_FACES'], filename=request_json["dfile"], as_attachment=True)
     #send download file to s3 and delete from local
     #upload file
     '''fileUp = open(os.path.join(
@@ -117,7 +115,7 @@ def file_conversion(request_json):
     sendFile = {"file": f}
     print("file",sendFile)
     # file = open(outputF, "rb")
-    # file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
+    file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
     # sendFile = {"file": file.content}
     
     # requests.post(urlFile,files=sendFile)
