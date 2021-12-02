@@ -50,9 +50,6 @@ class VistaFiles(Resource):
             # outputF = URL_ARCHIVOS+'/download/' + dfile
             # outputF = './tmp/' + dfile
             inputF  = URL_ARCHIVOS+'/upload/' + file.filename 
-            print("acaaaaaaaaaaaaaa")
-            print(outputF)
-            print(inputF)
             # json = {
             #     'output':output,
             #     'urlFile':URL_ARCHIVOS,
@@ -133,8 +130,8 @@ class VistaDeleteFiles(Resource):
         outputF = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'], name)  # Build previous name path
         outputFormat = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'],
                                     nameFormat)  # Build previous format name path
-        os.remove(outputF)
-        os.remove(outputFormat)
+        # os.remove(outputF)
+        # os.remove(outputFormat)
 
         resp = jsonify(
             {'message': 'Files deleted'}

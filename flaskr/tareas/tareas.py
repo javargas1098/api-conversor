@@ -106,10 +106,10 @@ def file_conversion(request_json):
          os.path.dirname(__file__).replace("tareas", "") + current_app.config['DOWNLOAD_FOLDER'], request_json["filename"]))
     '''
     #download file
-    print("oooooooooooooooooooooo")
-    print(os.getcwd())
-    print(os.path.dirname(__file__))
-    print(outputF)
+    # print("oooooooooooooooooooooo")
+    # print(os.getcwd())
+    # print(os.path.dirname(__file__))
+    # print(outputF)
     # file.save(outputF)
     f = open(outputF, "rb")
     # sendFile2 = {"file": (request_json["dfile"], f.stream, f.mimetype)}
