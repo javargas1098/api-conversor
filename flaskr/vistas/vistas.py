@@ -17,7 +17,6 @@ URL_ARCHIVOS = "http://ec2-3-235-152-37.compute-1.amazonaws.com"
 class VistaFiles(Resource):
 
     def post(self):
-        print("entreee")
         if 'file' not in request.files:
             resp = jsonify({'message': 'No file part in the request'}) 
             resp.status_code = 400
@@ -51,6 +50,7 @@ class VistaFiles(Resource):
             # outputF = URL_ARCHIVOS+'/download/' + dfile
             # outputF = './tmp/' + dfile
             inputF  = URL_ARCHIVOS+'/upload/' + file.filename 
+            print("acaaaaaaaaaaaaaa")
             print(inputF)
             # json = {
             #     'output':output,
