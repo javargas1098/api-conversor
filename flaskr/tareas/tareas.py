@@ -112,13 +112,14 @@ def file_conversion(request_json):
     print(outputF)
     # file.save(outputF)
     f = open(outputF, "rb")
+    # sendFile2 = {"file": (request_json["dfile"], f.stream, f.mimetype)}
     sendFile = {"file": f}
     print("file",sendFile)
     # file = open(outputF, "rb")
-    file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
+    # file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
     # sendFile = {"file": file.content}
     
-    # requests.post(urlFile,files=sendFile)
+    requests.post(urlFile,files=sendFile)
     # Build previous format name path
     # os.remove(outputF)
     # Update DB
