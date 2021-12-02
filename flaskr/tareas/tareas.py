@@ -4,7 +4,7 @@ import subprocess as sp
 from subprocess import Popen, PIPE
 from celery import Celery
 from celery.signals import task_postrun
-from flask import current_app,Flask
+from flask import current_app,Flask,send_from_directory
 from ..modelos import Task, TaskSchema,db
 import requests
 import boto3
@@ -94,6 +94,8 @@ def file_conversion(request_json):
         proc.kill()
 
     print("DONE\n")
+    ddir = os.path.join(current_app.config['UPLOAD_FOLDER_FACES'], request_json["dfile"])
+    send_from_directory(current_app.config['UPLOAD_FOLDER_FACES'], request_json["dfile"], as_attachment=True)
     #send download file to s3 and delete from local
     #upload file
     '''fileUp = open(os.path.join(
