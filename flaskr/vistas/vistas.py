@@ -17,6 +17,7 @@ URL_ARCHIVOS = "http://ec2-3-235-152-37.compute-1.amazonaws.com"
 class VistaFiles(Resource):
 
     def post(self):
+        print("entreee")
         if 'file' not in request.files:
             resp = jsonify({'message': 'No file part in the request'}) 
             resp.status_code = 400
@@ -70,6 +71,7 @@ class VistaFiles(Resource):
             'urlFile': URL_ARCHIVOS+'/download'
         }
             #args = (json,)
+            print("llegue aca")
             file_conversion.delay(json)
             return "Task converted", 201
         else:
