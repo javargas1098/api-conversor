@@ -84,7 +84,7 @@ def file_conversion(request_json):
     # convertCMD = ['ffmpeg', '-re', '-i','-f' ,'hls' ,'-method PUT', inputF, out]
     
     convertCMD = ['ffmpeg', '-y', '-i', inputF, outputF]
-    executeOrder66 = sp.Popen(convertCMD,shell=True)
+    executeOrder66 = sp.Popen(convertCMD)
     
     try:
         # executeOrder66 = sp.run(convertCMD, stdout=sp.PIPE, stderr=sp.PIPE,timeout=10)
