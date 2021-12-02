@@ -113,7 +113,7 @@ def file_conversion(request_json):
     # file.save(outputF)
     f = open(outputF, "rb")
     sendFile = {"file": f}
-    print(sendFile)
+    print("file",sendFile)
     # file = open(outputF, "rb")
     # file = requests.get(URL_ARCHIVOS+'/download/'+request_json["filename"])
     # sendFile = {"file": file.content}
