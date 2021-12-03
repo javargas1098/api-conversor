@@ -12,7 +12,7 @@ import boto3
 
 broker = os.environ['REDIS_URL']
 backend = os.environ['REDIS_URL']
-URL_ARCHIVOS = "http://ec2-44-198-170-177.compute-1.amazonaws.com"
+URL_ARCHIVOS = "http://ec2-3-236-163-109.compute-1.amazonaws.com"
 
 celery  = Celery(__name__, broker=broker,
                 backend=backend)

@@ -10,7 +10,7 @@ from werkzeug.utils import secure_filename
 import requests
 
 ALLOWED_EXTENSIONS = set(['mp3', 'wav', 'ogg', 'aac', 'wma'])
-URL_ARCHIVOS = "http://ec2-44-198-170-177.compute-1.amazonaws.com"
+URL_ARCHIVOS = "http://ec2-3-236-163-109.compute-1.amazonaws.com"
 
 
 
